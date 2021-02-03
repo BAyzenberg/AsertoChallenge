@@ -10,6 +10,7 @@ import {
 } from 'react-router-dom';
 
 import IndividualDisplay from './Individual';
+import ListView from './List';
 
 function Router() {
   return (
@@ -22,7 +23,7 @@ function Router() {
           <IndividualDisplay />
         </Route>
         <Route path="/">
-          List View
+          <ListView />
         </Route>
       </Switch>
     </BrowserRouter>
