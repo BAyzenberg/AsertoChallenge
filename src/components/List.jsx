@@ -87,7 +87,11 @@ function ListView() {
           {data.map(user => {
             return (<li key={user.id}>
               <img src={user.picture} alt={user.display_name} />
-              <Link to={`/${user.id}`}>{user.display_name}</Link>
+              <div className="preview">
+                <Link to={`/${user.id}`}>{user.display_name}</Link>
+                <div>{user.attr.title}</div>
+                <div>Department of {user.attr.department}</div>
+              </div>
             </li>)
           })}
         </ul>

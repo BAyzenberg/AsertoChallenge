@@ -10,6 +10,17 @@
     li {
       padding: 10px 5px;
       border-bottom: 1px dashed black;
+      * {
+        display: inline-block;
+      }
+      div {
+        margin-left: 30px;
+        text-align: center;
+        * {
+          font-size: 18px;
+          display: block;
+        }
+      }
       img {
         height: 200px;
         width: 175px;
@@ -17,7 +28,6 @@
       a {
         font-size: 30px;
         color: black;
-        margin-left: 50px;
       }
     }
     & :last-child {
