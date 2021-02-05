@@ -9,8 +9,8 @@ import {
   useParams
 } from 'react-router-dom';
 
-import IndividualDisplay from './Individual';
-import ListView from './List';
+import IndividualDisplay from './components/Individual';
+import ListView from './components/List';
 
 function Router() {
   return (

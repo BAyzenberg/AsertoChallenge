@@ -1,0 +1,41 @@
+.list-view {
+  margin: 10px;
+  height: 100%;
+  ul {
+    border: 1px solid black;
+    padding: 10px 5px;
+    list-style: none;
+    overflow-y: scroll;
+    max-height: 550px;
+    li {
+      padding: 10px 5px;
+      border-bottom: 1px dashed black;
+      img {
+        height: 200px;
+        width: 175px;
+      }
+      a {
+        font-size: 30px;
+        color: black;
+        margin-left: 50px;
+      }
+    }
+    & :last-child {
+      border-bottom: none;
+    }
+  }
+
+  .page-nav {
+    width: 100%;
+    * {
+      width: 33%;
+      display: inline-block;
+    }
+    .page-back {
+      text-align: left;
+    }
+    .page-next {
+      text-align: right;
+    }
+  }
+}
