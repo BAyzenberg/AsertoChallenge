@@ -8,6 +8,7 @@ function ListView() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [nextPageToken, setNextPageToken] = useState("");
+  const [maxEntries, setMaxEntries] = useState(-1);
 
   const [allData, setAllData] = useState([]);
   const [data, setData] = useState([]);
@@ -25,6 +26,7 @@ function ListView() {
         setIsLoaded(true);
         setAllData(result.results);
         setNextPageToken(result.page.next_token);
+        setMaxEntries(result.page.total_size);
       },
       (error) => {
         setIsLoaded(true);
@@ -91,11 +93,15 @@ function ListView() {
         </ul>
         <div className="page-nav">
           <div className="page-back">
-            <button onClick={lastTen}>Previous</button>
+            {page !== 0 &&
+              <button onClick={lastTen}>Previous</button>
+            }
           </div>
           <div className="page-number">{page + 1}</div>
           <div className="page-next">
-            <button onClick={nextTen}>Next</button>
+            {(page + 1) * 10 < maxEntries &&
+              <button onClick={nextTen}>Next</button>
+            }
           </div>
         </div>
       </div>

@@ -36,21 +36,23 @@ function IndividualDisplay() {
 
   if (error) {
     return <div>Error: {error.message}</div>
-  } else if (!isLoaded || data === undefined/*should be unneeded based on repositioning set calls*/) {
+  } else if (!isLoaded) {
     return <div>Loading...</div>
   } else {
+    let phone = Object.keys(data.identities).filter(identity => data.identities[identity].type === "PHONE")[0];
     return (
       <div className="individual-view">
         <div className="top-view">
           <div className="photo">
             <img src={data.picture} alt={data.display_name} />
-            </div>
+          </div>
           <div className="user-details">
             <div><span className="title">Name:</span><span className="data">{data.display_name}</span></div>
-            <div><span className="title">Email:</span><span className="data">{data.email}</span></div>
             <div><span className="title">Title:</span><span className="data">{data.attr.title}</span></div>
             <div><span className="title">Department:</span><span className="data">{data.attr.department}</span></div>
             <div><span className="title">Roles:</span><span className="data">{data.applications['*'].roles.join(", ")}</span></div>
+            <div><span className="title">Email:</span><span className="data">{data.email}</span></div>
+            <div><span className="title">Phone Number:</span><span className="data">{phone}</span></div>
           </div>
         </div>
         {data.attr.manager !== "" && // checks for a valid manager id

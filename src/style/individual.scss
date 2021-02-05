@@ -1,5 +1,6 @@
 .individual-view {
   margin: 20px 10px;
+  border: 1px solid black;
   .top-view {
     width: 100%;
     display: inline-block;
@@ -31,6 +32,9 @@
   .manager-link {
     font-size: 18px;
     margin-bottom: 20px;
+    a {
+      color: black;
+    }
   }
 
   .metadata {
