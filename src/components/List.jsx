@@ -7,48 +7,38 @@ import "../style/list.scss";
 function ListView() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [nextPageToken, setNextPageToken] = useState("");
   const [maxEntries, setMaxEntries] = useState(-1);
+  const [nameFilter, setNameFilter] = useState("");
 
   const [allData, setAllData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
 
-  let apiUri = "https://onebox.aserto.us:8383/api/v1/dir/users?page.size=10&page.token="
+  let apiUri = "https://onebox.aserto.us:8383/api/v1/dir/users?"
 
   useEffect(() => {
     setAllData([]);
     setPage(0);
+    let entries = -1;
+    let loadData = [];
     fetch(apiUri)
       .then(res => res.json())
       .then(result => {
-        setData(result.results);
-        setIsLoaded(true);
-        setAllData(result.results);
-        setNextPageToken(result.page.next_token);
         setMaxEntries(result.page.total_size);
-      },
-      (error) => {
+        loadData = result.results;
+        loadData.sort((a, b) => a.display_name.localeCompare(b.display_name));
+        setAllData(loadData);
+        setFilteredData(loadData);
+        let display = loadData.slice(0, 10);
+        setData(display);
         setIsLoaded(true);
-        setError(error);
-      })
-  }, []);
-
-  // TODO: maybe able to refactor above and below to combine
-  function getNextPage() {
-    fetch(apiUri + nextPageToken)
-      .then(res => res.json())
-      .then(result => {
-        setData(result.results);
-        let newFull = allData.concat(result.results)
-        setAllData(newFull);
-        setNextPageToken(result.page.next_token);
       },
       (error) => {
         setError(error);
         setIsLoaded(true); // maybe unneeded
       });
-  }
+  }, []);
 
   function nextTen(event) {
     event.preventDefault();
@@ -61,20 +51,31 @@ function ListView() {
   }
 
   function changeDisplayData(newPage) {
-    if (allData === null) return; // data doesn't exist
+    if (filteredData === null) return; // data doesn't exist
     if (newPage < 0) return; // Tried to access negative index
     setIsLoaded(false);
     let index = newPage * 10
-    if (allData[index] === undefined) {
-      getNextPage();
-      setPage(newPage)
-    } else {
-      let display = allData.slice(index, index + 10);
-      setData(display);
-      setPage(newPage);
-    }
+    let display = filteredData.slice(index, index + 10);
+    setData(display);
+    setPage(newPage);
     setIsLoaded(true);
   }
+
+  function changeNameFilter(event) {
+    event.preventDefault();
+    if (event.target.value === "") {
+      setFilteredData(allData);
+    } else {
+      let newData = allData.filter(individual => individual.display_name.toLowerCase().includes(event.target.value.toLowerCase()));
+      setFilteredData(newData);
+    }
+
+    setPage(0);
+  }
+
+  useEffect(() => {
+    changeDisplayData(page)
+  }, [page, filteredData]);
 
   if (error) {
     return <div>Error: {error.message}</div>
@@ -83,6 +84,7 @@ function ListView() {
   } else {
     return (
       <div className="list-view">
+        <input className="name-filter" type="text" onChange={changeNameFilter} placeHolder="filter by name" />
         <ul>
           {data.map(user => {
             return (<li key={user.id}>
@@ -103,7 +105,7 @@ function ListView() {
           </div>
           <div className="page-number">{page + 1}</div>
           <div className="page-next">
-            {(page + 1) * 10 < maxEntries &&
+            {(page + 1) * 10 < filteredData.length &&
               <button onClick={nextTen}>Next</button>
             }
           </div>

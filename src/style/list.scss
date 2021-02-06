@@ -6,7 +6,7 @@
     padding: 10px 5px;
     list-style: none;
     overflow-y: scroll;
-    max-height: 550px;
+    max-height: 500px;
     li {
       padding: 10px 5px;
       border-bottom: 1px dashed black;
@@ -47,5 +47,9 @@
     .page-next {
       text-align: right;
     }
+  }
+
+  .name-filter {
+    display: block;
   }
 }
