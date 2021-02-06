@@ -20,5 +20,19 @@ Things i have considered adding:
   * This is at the top of the list for things i considered.  The purpose was useful access, so searching by things like department or name initially came to mind.
   * It has not been added yet due to the timeframe to complete the challenge, while there was no set limit given, i still wanted to provide an mvp at the end of one week.
 
+
 * A tree org structure
  * Since the manager id is being provided i though it would be nice to have a display for the entire organization.
+ * I decided against this because i wasn't sure how much time i would need to put in to make a nice looking tree.
+
+
+* More information on the individual
+ * There was a lot more information provided than what i decided to use, i chose what i did base on surface level knowledge of the data but i realize that some of the information may be more relevant than the rest.
+
+
+### Final Comments
+
+I thought that this was a much better way to test someone's abilities than the traditional interview process.
+
+I also noticed when going through the data for testing, some phone numbers were in a +1 XX-XXXX-XXXX instead of the traditional format.
+Just wanted to point that out in case it was done in error.
